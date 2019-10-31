@@ -5,7 +5,12 @@ import CitySearch from './CitySearch';
 import NumberOfEvents from './NumberOfEvents';
 import { getEvents } from './api';
 
+
 class App extends Component {
+  state = {
+   events: []
+ }
+
   render() {
     return (
       <div className="App">

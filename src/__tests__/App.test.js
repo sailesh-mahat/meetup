@@ -5,6 +5,7 @@ import EventList from '../EventList';
 import CitySearch from '../CitySearch';
 import NumberOfEvents from '../NumberOfEvents';
 import { mockEvents } from '../mock-events';
+import Event from '../Event';
 
 
 
@@ -50,7 +51,7 @@ describe('<App /> integration', () => {
   test('render correct list of events', () => {
     const AppWrapper = mount(<App />);
     AppWrapper.setState({ events: [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }] });
-    expect(AppWrapper.find('.Event')).toHaveLength(4);
+    expect(AppWrapper.find(Event)).toHaveLength(4);
     AppWrapper.unmount();
   });
 });
