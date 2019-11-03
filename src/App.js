@@ -15,14 +15,21 @@ class App extends Component {
 
   state = {
     events: [],
+    page:null,
     defaultCity: '',
-    numberOfEvents: '',
     lat: '',
     lon: ''
  }
 
- updateEvents = (lat, lon) => {
-    getEvents(lat, lon).then(response => this.setState({ events: response.events, numberOfEvents: response.events.length, lat: response.city.lat, lon: response.city.lon }));
+ updateEvents = (lat, lon, page) => {
+   if(lat && lon) {
+    getEvents(lat, lon, this.state.page).then(response => this.setState({ events: response, lat, lon }));
+  }
+  else if (page) {
+    getEvents(this.state.lat, this.state.lon, page).then(response => this.setState({ events: response, page }));
+  }
+  else {
+    getEvents(this.state.lat, this.state.lon, this.state.page).then(response => this.setState({ events: response }));
   }
 
   updateNumberOfEvents = (lat, lon, page) => {
@@ -31,13 +38,14 @@ class App extends Component {
       console.log('page: ' + page);
       getNewListOfEvents(lat, lon, page).then(response => this.setState({ events: response.events, numberOfEvents: response.events.length }));
     }
+}
 
   render() {
     return (
       <div className="App">
-      <CitySearch updateEvents={this.updateEvents} defaultCity={this.state.defaultCity} />
+      <CitySearch updateEvents={this.updateEvents} />
       <EventList events={this.state.events} />
-      <NumberOfEvents updateNumberOfEvents={this.updateNumberOfEvents} numberOfEvents={this.state.numberOfEvents} lat={this.state.lat} lon={this.state.lon} />
+      <NumberOfEvents updateEvents={this.updateEvents} numberOfEvents={this.state.events.length} lat={this.state.lat} lon={this.state.lon} />
       </div>
     );
   }
