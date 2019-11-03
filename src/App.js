@@ -4,26 +4,44 @@ import EventList from './EventList';
 import CitySearch from './CitySearch';
 import NumberOfEvents from './NumberOfEvents';
 import { getEvents } from './api';
+import { getNewListOfEvents } from './api'
 
 
 class App extends Component {
+
+  componentDidMount() {
+    getEvents().then(response => this.setState({ events: response.events, defaultCity: response.city.city, numberOfEvents: response.events.length }));
+  }
+
   state = {
-   events: []
+    events: [],
+    defaultCity: '',
+    numberOfEvents: '',
+    lat: '',
+    lon: ''
  }
+
+ updateEvents = (lat, lon) => {
+    getEvents(lat, lon).then(response => this.setState({ events: response.events, numberOfEvents: response.events.length, lat: response.city.lat, lon: response.city.lon }));
+  }
+
+  updateNumberOfEvents = (lat, lon, page) => {
+      console.log('lat: ' + lat);
+      console.log('lon: ' + lon);
+      console.log('page: ' + page);
+      getNewListOfEvents(lat, lon, page).then(response => this.setState({ events: response.events, numberOfEvents: response.events.length }));
+    }
 
   render() {
     return (
       <div className="App">
-        <CitySearch updateEvents={this.updateEvents} />
-        <NumberOfEvents />
-        <EventList events={this.state.events} />
+      <CitySearch updateEvents={this.updateEvents} defaultCity={this.state.defaultCity} />
+      <EventList events={this.state.events} />
+      <NumberOfEvents updateNumberOfEvents={this.updateNumberOfEvents} numberOfEvents={this.state.numberOfEvents} lat={this.state.lat} lon={this.state.lon} />
       </div>
     );
   }
 
-  updateEvents = (lat, lon) => {
-    getEvents(lat, lon).then(events => this.setState({ events }));
-  }
 }
 
 
