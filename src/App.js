@@ -32,12 +32,7 @@ class App extends Component {
     getEvents(this.state.lat, this.state.lon, this.state.page).then(response => this.setState({ events: response }));
   }
 
-  updateNumberOfEvents = (lat, lon, page) => {
-      console.log('lat: ' + lat);
-      console.log('lon: ' + lon);
-      console.log('page: ' + page);
-      getNewListOfEvents(lat, lon, page).then(response => this.setState({ events: response.events, numberOfEvents: response.events.length }));
-    }
+
 }
 
   render() {
