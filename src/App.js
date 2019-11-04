@@ -4,13 +4,12 @@ import EventList from './EventList';
 import CitySearch from './CitySearch';
 import NumberOfEvents from './NumberOfEvents';
 import { getEvents } from './api';
-import { getNewListOfEvents } from './api'
 
 
 class App extends Component {
 
   componentDidMount() {
-    getEvents().then(response => this.setState({ events: response.events, defaultCity: response.city.city, numberOfEvents: response.events.length }));
+    getEvents().then(response => this.setState({ events: response }));
   }
 
   state = {
