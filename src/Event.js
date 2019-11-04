@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 
 class Event extends Component {
-  state = {
-    event: {},
-    showDetails: false
+  constructor(props) {
+      super(props);
+      this.state = {
+        events: [],
+        showDetails: false
+      }
   }
 
   handleShowDetails = () => {
@@ -12,6 +15,9 @@ class Event extends Component {
 
   render() {
     const showDetails = this.state.showDetails;
+
+    console.log("PROPS", this.props)
+
 
     return(
       <div className="Event">
