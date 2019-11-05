@@ -69,12 +69,12 @@ describe('<Event /> component', () => {
 
   test('test that event wrapping div is rendered', () => {
     EventWrapper = shallow(<Event event={event} />);
-    expect(EventWrapper.find('.event')).toHaveLength(1);
+    expect(EventWrapper.find('.Event')).toHaveLength(1);
   });
 
   test('test that event wrapping div just shows event__Overview', () => {
     EventWrapper = shallow(<Event event={event} />);
-    expect(EventWrapper.find('.event').children()).toHaveLength(1);
+    expect(EventWrapper.find('.Event').children()).toHaveLength(1);
   });
 
   test('test that event__Overview is rendered', () => {
@@ -84,7 +84,7 @@ describe('<Event /> component', () => {
 
   test('test that event__Overview children are rendered', () => {
     EventWrapper = shallow(<Event event={event} />);
-    expect(EventWrapper.find('.event__Overview').children()).toHaveLength(3);
+    expect(EventWrapper.find('.event__Overview').children()).toHaveLength(5);
   });
 
   test('test that event__Details children are rendered', () => {
@@ -113,7 +113,8 @@ describe('<Event /> component', () => {
 
    EventWrapper = shallow(<Event event={event} />);
 
-    console.log(EventWrapper.state('event'));
+    //console.log(EventWrapper.state('event'));
+    EventWrapper.setState({ event: event });
     expect(EventWrapper.state('event').name).toBe('Kubernetes Operators:The Ops in DevOps&Measuring DevOps performance-Hosted Event');
   });
 });

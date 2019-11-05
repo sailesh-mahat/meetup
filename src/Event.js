@@ -16,7 +16,7 @@ class Event extends Component {
   render() {
     const showDetails = this.state.showDetails;
 
-    console.log("PROPS", this.props)
+  //  console.log("PROPS", this.props)
 
 
     return(

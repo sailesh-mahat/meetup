@@ -50,7 +50,47 @@ describe('<App /> integration', () => {
 
   test('render correct list of events', () => {
     const AppWrapper = mount(<App />);
-    AppWrapper.setState({ events: [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }] });
+
+    const myEvents = [
+      {
+        id: 1,
+        name: 'event one',
+        local_date: '11/11/19',
+        group: {
+          name: 'group one'
+        },
+        yes_rsvp_count: 10
+      },
+      {
+        id: 2,
+        name: 'event two',
+        local_date: '11/11/19',
+        group: {
+          name: 'group two'
+        },
+        yes_rsvp_count: 11
+      },
+      {
+        id: 3,
+        name: 'event three',
+        local_date: '11/11/19',
+        group: {
+          name: 'group three'
+        },
+        yes_rsvp_count: 12
+      },
+      {
+        id: 4,
+        name: 'event four',
+        local_date: '11/11/19',
+        group: {
+          name: 'group four'
+        },
+        yes_rsvp_count: 13
+      },
+    ]
+
+    AppWrapper.setState({ events: myEvents });
     expect(AppWrapper.find(Event)).toHaveLength(4);
     AppWrapper.unmount();
   });
