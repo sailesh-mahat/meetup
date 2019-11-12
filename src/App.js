@@ -3,24 +3,30 @@ import './App.css';
 import EventList from './EventList';
 import CitySearch from './CitySearch';
 import NumberOfEvents from './NumberOfEvents';
+import { WarningAlert } from './Alert'
 import { getEvents } from './api';
+import logo from './images/icon.png'
+
 
 
 class App extends Component {
 
-  componentDidMount() {
-    getEvents().then(response => this.setState({ events: response }));
-  }
-
   state = {
     events: [],
-    page:null,
-    defaultCity: '',
-    lat: '',
-    lon: ''
- }
+    page: null,
+  }
+  componentDidMount() {
+      this.updateEvents();
+  }
 
  updateEvents = (lat, lon, page) => {
+
+   if (!navigator.onLine){
+      this.setState({ warningText: "You are offline. Events displayed are loaded from your last session."});
+    } else {
+      this.setState({ warningText: ""})
+    }
+
    if(lat && lon) {
     getEvents(lat, lon, this.state.page).then(response => this.setState({ events: response, lat, lon }));
   }
@@ -37,8 +43,10 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+      <img className="logo" src={logo} alt="logo" />
       <CitySearch updateEvents={this.updateEvents} />
       <NumberOfEvents updateEvents={this.updateEvents} numberOfEvents={this.state.events.length} lat={this.state.lat} lon={this.state.lon} />
+      <WarningAlert text={this.state.warningText} />
       <EventList events={this.state.events} />
       </div>
     );
