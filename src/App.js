@@ -5,7 +5,7 @@ import CitySearch from './CitySearch';
 import NumberOfEvents from './NumberOfEvents';
 import { WarningAlert } from './Alert'
 import { getEvents } from './api';
-import logo from './images/icon.png'
+import logo from './images/logo.png'
 
 
 
